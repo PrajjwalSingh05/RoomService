@@ -1,0 +1,37 @@
+{% include 'admin_navigation.html' %}
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Booking Date</th>
+        <th>No. Of Days</th>
+        <th>Price</th>
+        <th>Room</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{i.full_name}}</td>
+        <td>{{i.email_id}}</td>
+        <td>{{i.contact1}} <br>{{i.contact2}}</td>
+        <td>{{i.booking_date}}</td>
+        <td align="center">{{i.total_days}}</td>
+        <td>{{i.price}}</td>
+        <td>{{i.room_no}}</td>
+        {% if i.status == "pending" %}
+        <td style="color:blue;"><a href="{% url 'change_status' i.id %}">{{i.status}}</a></td>
+        {% endif %}
+        {% if i.status == "Confirm" %}
+        <td><a href="{% url 'change_status' i.id %}" class="btn btn-success btn-sm">{{i.status}}</a></td>
+        {% endif %}
+        {% if i.status == "Canceled" %}
+        <td style="color:red;"><a href="{% url 'change_status' i.id %}">{{i.status}}</a></td>
+        {% endif %}
+        <td><a href="{% url 'delete_booking' i.id %}" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
